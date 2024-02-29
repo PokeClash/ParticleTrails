@@ -46,7 +46,7 @@ class Trails(private val main: ParticleTrails) {
             val source = ctx.source
 
             val player = source.player!!
-            GUIs.getTrailsGui(player).open()
+            GUIs.getCategoriesGui(player).open()
             1
         }
     }

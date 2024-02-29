@@ -69,6 +69,25 @@ class Utils {
             return item
         }
 
+        fun createItem(category: TrailCategory): ItemStack {
+            val item = ItemStack(Items.PAPER, category.trails.size)
+            item.setCustomName(category.getDisplayName())
+
+            if (category.description != "") {
+                val lore = mutableListOf(Text.literal("§f" + category.description))
+                val nbt = item.orCreateNbt
+                val displayNbt = item.getOrCreateSubNbt("display")
+                val nbtLore = NbtList()
+                for (line in lore)
+                    nbtLore.add(NbtString.of(Text.Serializer.toJson(line)))
+                displayNbt.put("Lore", nbtLore)
+                nbt.put("display", displayNbt)
+                item.nbt = nbt
+            }
+
+            return item
+        }
+
         fun parseMM(string: String): Text {
             return ParticleTrails.adventure.toNative(
                 ParticleTrails.mm.deserialize(string)
@@ -115,7 +134,7 @@ class Utils {
                 val center = player.pos
                 val radius = .3
 
-                for (i in 0 until 360 step 40) {
+                for (i in 0 until 360 step 20) {
                     val angleRad = Math.toRadians(i.toDouble())
                     val offsetX = radius * cos(angleRad)
                     val offsetZ = radius * sin(angleRad)
