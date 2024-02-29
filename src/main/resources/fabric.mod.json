@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "particletrails",
+  "version": "${version}",
+  "name": "ParticleTrails",
+  "description": "Lets players have trails of particles follow them around.",
+  "authors": [
+    "GuitarXpress"
+  ],
+  "contact": {
+    "repo": ""
+  },
+  "license": "All Rights Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.roanoke.particletrails.ParticleTrails"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.22",
+    "fabric": "*",
+    "minecraft": "1.20.1"
+  }
+}
