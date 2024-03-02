@@ -331,6 +331,36 @@ class Utils {
                         )
                     }
                 }
+                TrailType.ORBIT -> {
+                    val radius = .8
+                    val rotationSpeed = 0.1
+
+                    val worldTick = player.world.time
+                    val angle = worldTick * rotationSpeed
+                    val angle2 = angle + (2 * PI / 3)
+                    val angle3 = angle + (4 * PI / 3)
+
+                    var x = player.x + radius * cos(angle)
+                    var y = player.boundingBox.center.y
+                    var z = player.z + radius * sin(angle)
+                    var newPos = Vec3d(x, y, z)
+                    spawnParticle(newPos, player.world as ServerWorld, particle)
+
+                    x = player.x + radius * cos(angle2)
+                    y = player.boundingBox.center.y
+                    z = player.z + radius * sin(angle2)
+                    newPos = Vec3d(x, y, z)
+                    spawnParticle(newPos, player.world as ServerWorld, particle)
+
+                    x = player.x + radius * cos(angle3)
+                    y = player.boundingBox.center.y
+                    z = player.z + radius * sin(angle3)
+                    newPos = Vec3d(x, y, z)
+                    spawnParticle(newPos, player.world as ServerWorld, particle)
+                }
+                TrailType.RINGS -> {
+                    // TODO
+                }
             }
         }
 
