@@ -2,7 +2,7 @@ package dev.roanoke.particletrails.utils
 
 import net.minecraft.text.Text
 
-class TrailCategory(val name: String, val description: String, private val display: String, val trails: MutableList<Trail>, val trailType: TrailType) {
+class TrailPack(val name: String, val description: String, private val display: String, val trails: MutableList<Trail>) {
 
     fun getTrailByName(name: String): Trail? {
         return trails.firstOrNull { it.name == name }

@@ -1,14 +1,14 @@
 package dev.roanoke.particletrails
 
 import dev.roanoke.particletrails.commands.Trails
+import dev.roanoke.particletrails.events.PlayerJoin
+import dev.roanoke.particletrails.events.PlayerLeave
 import dev.roanoke.particletrails.managers.PermissionManager
-import dev.roanoke.particletrails.utils.Trail
-import dev.roanoke.particletrails.utils.TrailCategory
-import dev.roanoke.particletrails.utils.TrailType
-import dev.roanoke.particletrails.utils.Utils
+import dev.roanoke.particletrails.utils.*
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
 import net.kyori.adventure.platform.fabric.FabricServerAudiences
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.luckperms.api.LuckPerms
@@ -35,9 +35,10 @@ class ParticleTrails : ModInitializer {
 
         val permissionManager: PermissionManager = PermissionManager()
 
-        val trailCategories: MutableList<TrailCategory> = mutableListOf()
-//        val trails: MutableList<Trail> = mutableListOf()
+        val trailCategories: MutableList<TrailPack> = mutableListOf()
         val playerTrail: MutableMap<UUID, Trail> = mutableMapOf()
+
+        val config = Config()
     }
 
 
@@ -54,19 +55,9 @@ class ParticleTrails : ModInitializer {
         }
 
         Trails(this)
-        val default = TrailCategory("default", "Default Trails", "<white><bold>Default", mutableListOf(), TrailType.DEFAULT)
-        default.addTrail(Trail("default_fireworks", "<white><bold>Fireworks", "Default Firework Trail", TrailType.DEFAULT, "firework"))
-        default.addTrail(Trail("default_heart", "<red><bold>Heart", "Default Heart Trail", TrailType.DEFAULT, "heart"))
-        val rotating = TrailCategory("rotating", "Rotating Trails", "<white><bold>Rotating", mutableListOf(), TrailType.ROTATING)
-        rotating.addTrail(Trail("rotating_heart", "<red><bold>Cloud 9", "Heart rotating above your head", TrailType.ROTATING, "heart"))
-        rotating.addTrail(Trail("rotating_firework", "<white><bold>Spark", "Firework Sparks rotating above your head", TrailType.ROTATING, "firework"))
-        val halo = TrailCategory("halo", "Halo Trails", "<white><bold>Halo", mutableListOf(), TrailType.HALO)
-        halo.addTrail(Trail("halo_red_dust", "<red><bold>Red Halo", "Red Halo above your head", TrailType.HALO, "dust", Vector3f(1f, 0f, 0f)))
-        halo.addTrail(Trail("halo_white_dust", "<white><bold>White Halo", "White Halo above your head", TrailType.HALO, "dust", Vector3f(1f, 1f, 1f)))
-        halo.addTrail(Trail("halo_yellow_dust", "<yellow><bold>Yellow Halo", "Yellow Halo above your head", TrailType.HALO, "dust", Vector3f(1f, 1f, 0f)))
-        trailCategories.add(default)
-        trailCategories.add(rotating)
-        trailCategories.add(halo)
+
+        ServerPlayConnectionEvents.JOIN.register(PlayerJoin())
+        ServerPlayConnectionEvents.DISCONNECT.register(PlayerLeave())
 
         var tick = 0
         ServerTickEvents.START_SERVER_TICK.register {
@@ -78,6 +69,6 @@ class ParticleTrails : ModInitializer {
             }
             tick++;
         }
-
     }
+
 }

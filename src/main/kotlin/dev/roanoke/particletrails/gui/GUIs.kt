@@ -1,7 +1,7 @@
 package dev.roanoke.particletrails.gui
 
 import dev.roanoke.particletrails.ParticleTrails
-import dev.roanoke.particletrails.utils.TrailCategory
+import dev.roanoke.particletrails.utils.TrailPack
 import dev.roanoke.particletrails.utils.Utils
 import eu.pb4.sgui.api.elements.GuiElementBuilder
 import eu.pb4.sgui.api.gui.SimpleGui
@@ -28,8 +28,8 @@ class GUIs {
             gui.title = Text.literal("§5§lParticle Trails")
 
             val trails = ParticleTrails.trailCategories.mapNotNull {
-                if (ParticleTrails.permissionManager.canUseTrail(player, it.name) || player.hasPermissionLevel(2)) {
-                    GuiElementBuilder.from(Utils.createItem(it))
+                if (ParticleTrails.permissionManager.canSeePack(player, it) || player.hasPermissionLevel(2)) {
+                    GuiElementBuilder.from(Utils.createItem(player, it))
                         .setCallback { _, _, _ ->
                             getTrailsGui(player, it).open()
                         }
@@ -82,7 +82,7 @@ class GUIs {
 
             gui.setSlot(40,
                 GuiElementBuilder(Items.RED_STAINED_GLASS_PANE)
-                    .setName(Text.literal("§4ClearTrail"))
+                    .setName(Text.literal("§4Clear Trail"))
                     .setCallback { _, _, _ ->
                         Utils.clearTrail(player)
                         player.sendMessage(Text.literal("§eCleared trail."))
@@ -109,12 +109,12 @@ class GUIs {
             return gui
         }
 
-        private fun getTrailsGui(player: ServerPlayerEntity, category: TrailCategory): SimpleGui {
+        private fun getTrailsGui(player: ServerPlayerEntity, category: TrailPack): SimpleGui {
             val gui = SimpleGui(ScreenHandlerType.GENERIC_9X5, player, false)
             gui.title = category.getDisplayName()
 
             val trails = category.trails.mapNotNull {
-                if (ParticleTrails.permissionManager.canUseTrail(player, it.name) || player.hasPermissionLevel(2)) {
+                if (ParticleTrails.permissionManager.canUseTrail(player, it) || player.hasPermissionLevel(2)) {
                     GuiElementBuilder.from(Utils.createItem(it))
                         .setCallback { _, _, _ ->
                             Utils.applyTrail(player, it)
@@ -170,11 +170,9 @@ class GUIs {
 
             gui.setSlot(40,
                 GuiElementBuilder(Items.RED_STAINED_GLASS_PANE)
-                    .setName(Text.literal("§4ClearTrail"))
+                    .setName(Text.literal("§4Back"))
                     .setCallback { _, _, _ ->
-                        Utils.clearTrail(player)
-                        player.sendMessage(Text.literal("§eCleared trail."))
-                        gui.close()
+                        getCategoriesGui(player).open()
                     }
                 )
 

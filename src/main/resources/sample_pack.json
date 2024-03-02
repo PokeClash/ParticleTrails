@@ -1,0 +1,22 @@
+{
+  "name": "sample_pack",
+  "display": "<bold><white>Sample Trails",
+  "description": "Sample trails",
+  "trails": [
+    {
+      "name": "default_fireworks",
+      "display": "<white><bold>Firework Particle Trail",
+      "description": "Default firework particle trail",
+      "trailType": "default",
+      "particleType": "firework"
+    },
+    {
+      "name": "dual_spiral_red_dust",
+      "display": "<red><bold>Dual Spiral Red Dust Trail",
+      "description": "Dual Spiral Red Dust Trail",
+      "trailType": "dual_spiral",
+      "particleType": "dust",
+      "colour": [255, 0, 0]
+    }
+  ]
+}

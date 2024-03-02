@@ -1,35 +1,85 @@
 package dev.roanoke.particletrails.managers
 
 import dev.roanoke.particletrails.ParticleTrails
+import dev.roanoke.particletrails.utils.Trail
+import dev.roanoke.particletrails.utils.TrailPack
+import dev.roanoke.particletrails.utils.Utils
 import net.luckperms.api.model.user.User
 import net.luckperms.api.node.Node
+import net.luckperms.api.query.Flag
+import net.luckperms.api.query.QueryOptions
 import net.minecraft.server.network.ServerPlayerEntity
 
 class PermissionManager {
 
-    fun getLuckPermsUser(player: ServerPlayerEntity): User {
+    private fun getLuckPermsUser(player: ServerPlayerEntity): User {
         return ParticleTrails.api.getPlayerAdapter(ServerPlayerEntity::class.java).getUser(player)
     }
 
-    fun hasPermission(player: ServerPlayerEntity, permission: String): Boolean {
+    private fun hasPermission(player: ServerPlayerEntity, permission: String): Boolean {
         val user = getLuckPermsUser(player)
         return user.cachedData.permissionData.checkPermission(permission).asBoolean()
     }
 
-    fun canUseTrail(player: ServerPlayerEntity, trail: String): Boolean {
-        return hasPermission(player, "particletrails.trail.$trail")
+    fun canUseTrail(player: ServerPlayerEntity, trail: Trail): Boolean {
+        return hasPermission(player, "particletrails.pack.${trail.packId}.trail.${trail.name}")
     }
 
-    fun giveTrail(player: ServerPlayerEntity, trail: String) {
-        ParticleTrails.api.userManager.modifyUser(player.uuid) {
-            it.data().add(Node.builder("particletrails.trail.$trail").build())
+    fun canSeePack(player: ServerPlayerEntity, pack: TrailPack): Boolean {
+        val user = getLuckPermsUser(player)
+        user.nodes.forEach { node ->
+            if (node.key.contains("particletrails.pack.${pack.name}")) {
+                return true
+            }
+        }
+
+        user.resolveInheritedNodes((QueryOptions.nonContextual())).forEach {
+            if (it.key.contains("particletrails.pack.${pack.name}")) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    fun giveTrail(player: ServerPlayerEntity?, trail: Trail) {
+        if (player != null) {
+            ParticleTrails.api.userManager.modifyUser(player.uuid) {
+                it.data().add(Node.builder("particletrails.pack.${trail.packId}.trail.${trail.name}").build())
+            }
         }
     }
 
-    fun removeTrail(player: ServerPlayerEntity, trail: String) {
-        ParticleTrails.api.userManager.modifyUser(player.uuid) {
-            it.data().remove(Node.builder("particletrails.trail.$trail").build())
+    fun removeTrail(player: ServerPlayerEntity?, trail: Trail) {
+        if (player != null) {
+            ParticleTrails.api.userManager.modifyUser(player.uuid) {
+                it.data().remove(Node.builder("particletrails.pack.${trail.packId}.trail.${trail.name}").build())
+            }
         }
+    }
+
+    fun getActiveTrail(player: ServerPlayerEntity): Trail? {
+        val user = getLuckPermsUser(player)
+        user.nodes.forEach { node ->
+            if (node.key.contains("particletrails.active.")) {
+                return Utils.getTrailByName(node.key.split(".")[2])
+            }
+        }
+        return null
+    }
+
+    fun setActiveTrail(player: ServerPlayerEntity, trail: Trail) {
+        ParticleTrails.api.userManager.modifyUser(player.uuid) {
+            it.data().add(Node.builder("particletrails.active.${trail.name}").build())
+        }
+    }
+
+    fun removeActiveTrail(player: ServerPlayerEntity) {
+        val activeTrail = getActiveTrail(player)
+        if (activeTrail != null)
+            ParticleTrails.api.userManager.modifyUser(player.uuid) {
+                it.data().remove(Node.builder("particletrails.active.${activeTrail.name}").build())
+            }
     }
 
 }

@@ -21,7 +21,16 @@ class Trails(private val main: ParticleTrails) {
                 CommandManager.literal("trails").requires { Permissions.check(it, "particletrails.use", 2) }
                     .executes(openGui())
                     .then(
-                        CommandManager.literal("give").requires { it.hasPermissionLevel(2) }
+                        CommandManager.literal("reload").requires { Permissions.check(it, "particletrails.reload", 2) }
+                            .executes { ctx ->
+                                val source = ctx.source
+                                ParticleTrails.config.loadPacks()
+                                source.sendFeedback({ Text.literal("§eReloaded trails") }, true)
+                                1
+                            }
+                    )
+                    .then(
+                        CommandManager.literal("give").requires { Permissions.check(it, "particletrails.give", 2) }
                             .then(
                                 CommandManager.argument("player", StringArgumentType.string())
                                     .suggests { _, builder ->
@@ -29,13 +38,28 @@ class Trails(private val main: ParticleTrails) {
                                     }
                                     .then(
                                         CommandManager.argument("trail", StringArgumentType.string())
+                                            .suggests { _, builder ->
+                                                CommandSource.suggestMatching(ParticleTrails.trailCategories.flatMap { it.trails }.map { it.name }.toSet(), builder)
+                                            }
                                             .executes(giveTrail())
                                     )
                             )
                     )
                     .then(
-                        CommandManager.literal("remove").requires { it.hasPermissionLevel(2) }
-                            .executes(removeCommand())
+                        CommandManager.literal("remove").requires { Permissions.check(it, "particletrails.remove", 2) }
+                            .then(
+                                CommandManager.argument("player", StringArgumentType.string())
+                                    .suggests { _, builder ->
+                                        CommandSource.suggestMatching(Utils.getAllPlayerNames(), builder)
+                                    }
+                                    .then(
+                                        CommandManager.argument("trail", StringArgumentType.string())
+                                            .suggests { _, builder ->
+                                                CommandSource.suggestMatching(ParticleTrails.trailCategories.flatMap { it.trails }.map { it.name }.toSet(), builder)
+                                            }
+                                            .executes(removeTrail())
+                                    )
+                            )
                     )
             )
         })
@@ -56,28 +80,41 @@ class Trails(private val main: ParticleTrails) {
             val source = ctx.source
 
             val playerName = StringArgumentType.getString(ctx, "player")
-            val trail = StringArgumentType.getString(ctx, "trail")
+            val trailName = StringArgumentType.getString(ctx, "trail")
 
             val player = Utils.getPlayerByName(playerName)
-            ParticleTrails.permissionManager.giveTrail(player!!, trail)
-            player.sendMessage(Text.literal("§aYou have been given the §e$trail §aTrail"))
+            val trail = Utils.getTrailByName(trailName)
+            if (trail == null) {
+                source.sendFeedback({ Text.literal("§cThat trail does not exist") }, true)
+                return@Command 0
+            }
 
-            source.sendFeedback({ Text.literal("§eGave §6$playerName $trail §eTrail") }, true)
+            Utils.giveTrail(player, trail)
+
+            player?.sendMessage(Text.literal("§aYou have been given the ").append(trail.getDisplayName()).append(Text.literal(" §aTrail")))
+
+            source.sendFeedback({ Text.literal("§eGave §6$playerName ").append(trail.getDisplayName()).append(" §eTrail") }, true)
             1
         }
     }
 
-    private fun removeCommand(): Command<ServerCommandSource> {
+    private fun removeTrail(): Command<ServerCommandSource> {
         return Command { ctx: CommandContext<ServerCommandSource> ->
             val source = ctx.source
 
             val playerName = StringArgumentType.getString(ctx, "player")
-            val trail = StringArgumentType.getString(ctx, "trail")
+            val trailName = StringArgumentType.getString(ctx, "trail")
 
             val player = Utils.getPlayerByName(playerName)
-            ParticleTrails.permissionManager.removeTrail(player!!, trail)
+            val trail = Utils.getTrailByName(trailName)
+            if (trail == null) {
+                source.sendFeedback({ Text.literal("§cThat trail does not exist") }, true)
+                return@Command 0
+            }
 
-            source.sendFeedback({ Text.literal("§eRemoved trail §6$trail §efrom §6$playerName") }, true)
+            Utils.removeTrail(player, trail)
+
+            source.sendFeedback({ Text.literal("§eRemoved trail ").append(trail.getDisplayName()).append(Text.literal("§efrom §6$playerName")) }, true)
             1
         }
     }

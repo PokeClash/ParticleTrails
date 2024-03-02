@@ -4,7 +4,7 @@ import net.minecraft.particle.*
 import net.minecraft.text.Text
 import org.joml.Vector3f
 
-class Trail(val name: String, private val display: String, val description: String, val trailType: TrailType, private val particleType: String? = null, private val colour: Vector3f? = null) {
+class Trail(val name: String, private val display: String, val description: String, val trailType: TrailType, private val particleType: String? = null, private val colour: Vector3f? = null, val packId: String = "default") {
 
     fun getDisplayName(): Text {
         return Utils.parseMM(display)
