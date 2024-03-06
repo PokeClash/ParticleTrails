@@ -245,13 +245,17 @@ class Utils {
                 }
 
                 TrailType.WISP -> {
-                    val radius = 1.0
+                    val radius = 1.2
                     val rotationSpeed = 0.1
+                    val maxRandomYOffset = 0.2
+                    val random = java.util.Random()
 
                     val worldTick = player.world.time
                     val angle = worldTick * rotationSpeed
+                    val randomYOffset = (random.nextDouble() * 2 - 1) * maxRandomYOffset * cos(angle)
+
                     val x = player.x + radius * cos(angle)
-                    val y = player.eyeY
+                    val y = player.eyeY + randomYOffset
                     val z = player.z + radius * sin(angle)
 
                     val newPos = Vec3d(x, y, z)
@@ -332,8 +336,8 @@ class Utils {
                     }
                 }
                 TrailType.ORBIT -> {
-                    val radius = .8
-                    val rotationSpeed = 0.1
+                    val radius = 1
+                    val rotationSpeed = 0.05
 
                     val worldTick = player.world.time
                     val angle = worldTick * rotationSpeed
@@ -357,9 +361,6 @@ class Utils {
                     z = player.z + radius * sin(angle3)
                     newPos = Vec3d(x, y, z)
                     spawnParticle(newPos, player.world as ServerWorld, particle)
-                }
-                TrailType.RINGS -> {
-                    // TODO
                 }
             }
         }

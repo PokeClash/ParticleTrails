@@ -3,7 +3,7 @@ package dev.roanoke.particletrails.utils
 import net.minecraft.text.Text
 
 enum class TrailType {
-    DEFAULT, HALO, ROTATING, SPIRAL, DUAL_SPIRAL, WISP, AURA, CLOUD, ORBIT, RINGS;
+    DEFAULT, HALO, ROTATING, SPIRAL, DUAL_SPIRAL, WISP, AURA, CLOUD, ORBIT;
 
     companion object {
         fun fromString(value: String): TrailType {
@@ -18,7 +18,6 @@ enum class TrailType {
                 "aura" -> AURA
                 "cloud" -> CLOUD
                 "orbit" -> ORBIT
-                "rings" -> RINGS
                 else -> DEFAULT
             }
         }

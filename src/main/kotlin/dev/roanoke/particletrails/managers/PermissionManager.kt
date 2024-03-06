@@ -22,10 +22,16 @@ class PermissionManager {
     }
 
     fun canUseTrail(player: ServerPlayerEntity, trail: Trail): Boolean {
+        if (player.hasPermissionLevel(2))
+            return true
+
         return hasPermission(player, "particletrails.pack.${trail.packId}.trail.${trail.name}")
     }
 
     fun canSeePack(player: ServerPlayerEntity, pack: TrailPack): Boolean {
+        if (player.hasPermissionLevel(2))
+            return true
+
         val user = getLuckPermsUser(player)
         user.nodes.forEach { node ->
             if (node.key.contains("particletrails.pack.${pack.name}")) {
