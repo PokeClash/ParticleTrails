@@ -43,7 +43,7 @@ class Config {
     }
 
     fun loadPacks() {
-        ParticleTrails.trailCategories.clear()
+        ParticleTrails.trailPacks.clear()
         val folder = FabricLoader.getInstance().configDir.resolve("ParticleTrails/packs")
         val files = folder.toFile().listFiles()
         if (files != null) {
@@ -68,9 +68,16 @@ class Config {
                         null
                     trailList.add(Trail(trailName, trailDisplay, trailDescription, TrailType.fromString(trailType), particleType, colour, packId))
                 }
-                ParticleTrails.trailCategories.add(TrailPack(packId, packDescription, packDisplay, trailList))
+                ParticleTrails.trailPacks.add(TrailPack(packId, packDescription, packDisplay, trailList))
             }
         }
+
+        val trailList: MutableList<Trail> = mutableListOf()
+        val trailTypes = TrailType.values()
+        for (particles in Utils.getAllParticleTypes())
+            for (type in trailTypes)
+                trailList.add(Trail("${type}_${particles.value}", "$type ${particles.value}", "", type, particles.value, null, "ADMIN_PACK"))
+        ParticleTrails.trailPacks.add(TrailPack("ADMIN_PACK", "All Available Trails", "<bold><light_purple>ADMIN PACK", trailList))
     }
 
     private fun createFile(filePath: Path, folder: Boolean = false): Boolean {

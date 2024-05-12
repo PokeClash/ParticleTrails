@@ -124,85 +124,111 @@ class Utils {
         }
 
         fun getPackByName(name: String): TrailPack? {
-            return ParticleTrails.trailCategories.find { it.name == name }
+            return ParticleTrails.trailPacks.find { it.name == name }
         }
 
         fun getTrailByName(name: String): Trail? {
-            return ParticleTrails.trailCategories.flatMap { it.trails }.find { it.name == name }
+            return ParticleTrails.trailPacks.flatMap { it.trails }.find { it.name == name }
         }
+
+        fun getAllParticleTypes(): Map<ParticleType<*>, String> {
+            return mapOf(
+                ParticleTypes.AMBIENT_ENTITY_EFFECT to "ambient_entity_effect",
+                ParticleTypes.ANGRY_VILLAGER to "angry_villager",
+                ParticleTypes.ASH to "ash",
+                ParticleTypes.BUBBLE to "bubble",
+                ParticleTypes.BUBBLE_COLUMN_UP to "bubble_column_up",
+                ParticleTypes.BUBBLE_POP to "bubble_pop",
+                ParticleTypes.CAMPFIRE_COSY_SMOKE to "campfire_cosy_smoke",
+                ParticleTypes.CAMPFIRE_SIGNAL_SMOKE to "campfire_signal_smoke",
+                ParticleTypes.CHERRY_LEAVES to "cherry_leaves",
+                ParticleTypes.CLOUD to "cloud",
+                ParticleTypes.COMPOSTER to "composter",
+                ParticleTypes.CRIMSON_SPORE to "crimson_spore",
+                ParticleTypes.CRIT to "crit",
+                ParticleTypes.CURRENT_DOWN to "current_down",
+                ParticleTypes.DAMAGE_INDICATOR to "damage_indicator",
+                ParticleTypes.DOLPHIN to "dolphin",
+                ParticleTypes.DRAGON_BREATH to "dragon_breath",
+                ParticleTypes.DRIPPING_DRIPSTONE_LAVA to "dripping_dripstone_lava",
+                ParticleTypes.DRIPPING_DRIPSTONE_WATER to "dripping_dripstone_water",
+                ParticleTypes.DRIPPING_HONEY to "dripping_honey",
+                ParticleTypes.DRIPPING_LAVA to "dripping_lava",
+                ParticleTypes.DRIPPING_OBSIDIAN_TEAR to "dripping_obsidian_tear",
+                ParticleTypes.DRIPPING_WATER to "dripping_water",
+                ParticleTypes.EFFECT to "effect",
+                ParticleTypes.EGG_CRACK to "egg_crack",
+                ParticleTypes.ELDER_GUARDIAN to "elder_guardian",
+                ParticleTypes.ELECTRIC_SPARK to "electric_spark",
+                ParticleTypes.ENCHANT to "enchant",
+                ParticleTypes.ENCHANTED_HIT to "enchanted_hit",
+                ParticleTypes.END_ROD to "end_rod",
+                ParticleTypes.ENTITY_EFFECT to "entity_effect",
+                ParticleTypes.EXPLOSION to "explosion",
+                ParticleTypes.EXPLOSION_EMITTER to "explosion_emitter",
+                ParticleTypes.FALLING_DRIPSTONE_LAVA to "falling_dripstone_lava",
+                ParticleTypes.FALLING_DRIPSTONE_WATER to "falling_dripstone_water",
+                ParticleTypes.FALLING_HONEY to "falling_honey",
+                ParticleTypes.FALLING_LAVA to "falling_lava",
+                ParticleTypes.FALLING_NECTAR to "falling_nectar",
+                ParticleTypes.FALLING_OBSIDIAN_TEAR to "falling_obsidian_tear",
+                ParticleTypes.FALLING_SPORE_BLOSSOM to "falling_spore_blossom",
+                ParticleTypes.FALLING_WATER to "falling_water",
+                ParticleTypes.FIREWORK to "firework",
+                ParticleTypes.FISHING to "fishing",
+                ParticleTypes.FLAME to "flame",
+                ParticleTypes.FLASH to "flash",
+                ParticleTypes.GLOW to "glow",
+                ParticleTypes.GLOW_SQUID_INK to "glow_squid_ink",
+                ParticleTypes.HAPPY_VILLAGER to "happy_villager",
+                ParticleTypes.HEART to "heart",
+                ParticleTypes.INSTANT_EFFECT to "instant_effect",
+                ParticleTypes.LARGE_SMOKE to "large_smoke",
+                ParticleTypes.LANDING_HONEY to "landing_honey",
+                ParticleTypes.LANDING_LAVA to "landing_lava",
+                ParticleTypes.LANDING_OBSIDIAN_TEAR to "landing_obsidian_tear",
+                ParticleTypes.MYCELIUM to "mycelium",
+                ParticleTypes.NAUTILUS to "nautilus",
+                ParticleTypes.NOTE to "note",
+                ParticleTypes.POOF to "poof",
+                ParticleTypes.PORTAL to "portal",
+                ParticleTypes.RAIN to "rain",
+                ParticleTypes.REVERSE_PORTAL to "reverse_portal",
+                ParticleTypes.SCRAPE to "scrape",
+                ParticleTypes.SCULK_CHARGE to "sculk_charge",
+                ParticleTypes.SCULK_CHARGE_POP to "sculk_charge_pop",
+                ParticleTypes.SCULK_SOUL to "sculk_soul",
+                ParticleTypes.SHRIEK to "shriek",
+                ParticleTypes.SMOKE to "smoke",
+                ParticleTypes.SMALL_FLAME to "small_flame",
+                ParticleTypes.SNEEZE to "sneeze",
+                ParticleTypes.SONIC_BOOM to "sonic_boom",
+                ParticleTypes.SOUL to "soul",
+                ParticleTypes.SOUL_FIRE_FLAME to "soul_fire_flame",
+                ParticleTypes.SPLASH to "splash",
+                ParticleTypes.SPORE_BLOSSOM_AIR to "spore_blossom_air",
+                ParticleTypes.SQUID_INK to "squid_ink",
+                ParticleTypes.SWEEP_ATTACK to "sweep_attack",
+                ParticleTypes.TOTEM_OF_UNDYING to "totem_of_undying",
+                ParticleTypes.UNDERWATER to "underwater",
+                ParticleTypes.VIBRATION to "vibration",
+                ParticleTypes.WARPED_SPORE to "warped_spore",
+                ParticleTypes.WAX_OFF to "wax_off",
+                ParticleTypes.WAX_ON to "wax_on",
+                ParticleTypes.WHITE_ASH to "white_ash",
+                ParticleTypes.WITCH to "witch",
+                ParticleTypes.SNOWFLAKE to "snowflake"
+            )
+        }
+
 
         fun getParticleFromString(particle: String): ParticleType<*> {
-            return when (particle) {
-                "ambient_entity_effect" -> ParticleTypes.AMBIENT_ENTITY_EFFECT
-                "angry_villager" -> ParticleTypes.ANGRY_VILLAGER
-                "bubble" -> ParticleTypes.BUBBLE
-                "bubble_column_up" -> ParticleTypes.BUBBLE_COLUMN_UP
-                "bubble_pop" -> ParticleTypes.BUBBLE_POP
-                "campfire_cosy_smoke" -> ParticleTypes.CAMPFIRE_COSY_SMOKE
-                "cloud" -> ParticleTypes.CLOUD
-                "composter" -> ParticleTypes.COMPOSTER
-                "critical_hit" -> ParticleTypes.CRIT
-                "current_down" -> ParticleTypes.CURRENT_DOWN
-                "damage_indicator" -> ParticleTypes.DAMAGE_INDICATOR
-                "dolphin" -> ParticleTypes.DOLPHIN
-                "dragon_breath" -> ParticleTypes.DRAGON_BREATH
-                "dripping_dripstone_lava" -> ParticleTypes.DRIPPING_DRIPSTONE_LAVA
-                "dripping_dripstone_water" -> ParticleTypes.DRIPPING_DRIPSTONE_WATER
-                "dripping_honey" -> ParticleTypes.DRIPPING_HONEY
-                "dripping_lava" -> ParticleTypes.DRIPPING_LAVA
-                "dripping_obsidian_tear" -> ParticleTypes.DRIPPING_OBSIDIAN_TEAR
-                "dripping_water" -> ParticleTypes.DRIPPING_WATER
-                "effect" -> ParticleTypes.EFFECT
-                "elder_guardian" -> ParticleTypes.ELDER_GUARDIAN
-                "enchant" -> ParticleTypes.ENCHANT
-                "enchanted_hit" -> ParticleTypes.ENCHANTED_HIT
-                "end_rod" -> ParticleTypes.END_ROD
-                "entity_effect" -> ParticleTypes.ENTITY_EFFECT
-                "explosion" -> ParticleTypes.EXPLOSION
-                "explosion_emitter" -> ParticleTypes.EXPLOSION_EMITTER
-                "falling_dust" -> ParticleTypes.FALLING_DUST
-                "falling_honey" -> ParticleTypes.FALLING_HONEY
-                "falling_lava" -> ParticleTypes.FALLING_LAVA
-                "falling_nectar" -> ParticleTypes.FALLING_NECTAR
-                "falling_obsidian_tear" -> ParticleTypes.FALLING_OBSIDIAN_TEAR
-                "falling_spore_blossom" -> ParticleTypes.FALLING_SPORE_BLOSSOM
-                "falling_water" -> ParticleTypes.FALLING_WATER
-                "firework" -> ParticleTypes.FIREWORK
-                "flame" -> ParticleTypes.FLAME
-                "flash" -> ParticleTypes.FLASH
-                "happy_villager" -> ParticleTypes.HAPPY_VILLAGER
-                "heart" -> ParticleTypes.HEART
-                "instant_effect" -> ParticleTypes.INSTANT_EFFECT
-                "landing_honey" -> ParticleTypes.LANDING_HONEY
-                "landing_lava" -> ParticleTypes.LANDING_LAVA
-                "landing_obsidian_tear" -> ParticleTypes.LANDING_OBSIDIAN_TEAR
-                "large_smoke" -> ParticleTypes.LARGE_SMOKE
-                "lava" -> ParticleTypes.LAVA
-                "mycelium" -> ParticleTypes.MYCELIUM
-                "nautilus" -> ParticleTypes.NAUTILUS
-                "note" -> ParticleTypes.NOTE
-                "poof" -> ParticleTypes.POOF
-                "portal" -> ParticleTypes.PORTAL
-                "rain" -> ParticleTypes.RAIN
-                "smoke" -> ParticleTypes.SMOKE
-                "sneeze" -> ParticleTypes.SNEEZE
-                "snowflake" -> ParticleTypes.SNOWFLAKE
-                "soul" -> ParticleTypes.SOUL
-                "soul_fire_flame" -> ParticleTypes.SOUL_FIRE_FLAME
-                "spit" -> ParticleTypes.SPIT
-                "squid_ink" -> ParticleTypes.SQUID_INK
-                "sweep_attack" -> ParticleTypes.SWEEP_ATTACK
-                "totem_of_undying" -> ParticleTypes.TOTEM_OF_UNDYING
-                "underwater" -> ParticleTypes.UNDERWATER
-                "vibration" -> ParticleTypes.VIBRATION
-                "wax_on" -> ParticleTypes.WAX_ON
-                "witch" -> ParticleTypes.WITCH
-                "wax_off" -> ParticleTypes.WAX_OFF
-                "spore_blossom_air" -> ParticleTypes.SPORE_BLOSSOM_AIR
-                else -> ParticleTypes.AMBIENT_ENTITY_EFFECT
+            getAllParticleTypes().forEach {
+                if (it.value.lowercase() == particle.lowercase())
+                    return it.key
             }
+            return ParticleTypes.AMBIENT_ENTITY_EFFECT
         }
-
 
         fun spawnParticles(player: ServerPlayerEntity, trail: Trail, tick: Int = 0) {
             val particle = trail.particleType()
@@ -335,6 +361,7 @@ class Utils {
                         )
                     }
                 }
+
                 TrailType.ORBIT -> {
                     val radius = 1
                     val rotationSpeed = 0.05

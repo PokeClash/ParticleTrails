@@ -27,7 +27,7 @@ class GUIs {
             val gui = SimpleGui(ScreenHandlerType.GENERIC_9X5, player, false)
             gui.title = Text.literal("§5§lParticle Trails")
 
-            val trails = ParticleTrails.trailCategories.mapNotNull {
+            val trails = ParticleTrails.trailPacks.mapNotNull {
                 if (ParticleTrails.permissionManager.canSeePack(player, it) || player.hasPermissionLevel(2)) {
                     GuiElementBuilder.from(Utils.createItem(player, it))
                         .setCallback { _, _, _ ->
@@ -86,7 +86,6 @@ class GUIs {
                     .setCallback { _, _, _ ->
                         Utils.clearTrail(player)
                         player.sendMessage(Text.literal("§eCleared trail."))
-                        gui.close()
                     }
             )
 
@@ -142,6 +141,8 @@ class GUIs {
 
             paginatedSection.applyToGui(gui)
 
+            gui.title = Text.literal("").append(category.getDisplayName()).append(Text.literal(" | ${paginatedSection.currentPage}"))
+
             if (trails.size > 21) {
                 gui.setSlot(28,
                     GuiElementBuilder(Items.PLAYER_HEAD).setSkullOwner(
@@ -153,6 +154,7 @@ class GUIs {
                         .setCallback { _, _, _ ->
                             paginatedSection.decrementPage()
                             paginatedSection.applyToGui(gui)
+                            gui.title = Text.literal("").append(category.getDisplayName()).append(Text.literal(" | ${paginatedSection.currentPage}"))
                         })
 
                 gui.setSlot(34,
@@ -165,6 +167,7 @@ class GUIs {
                         .setCallback { _, _, _ ->
                             paginatedSection.incrementPage()
                             paginatedSection.applyToGui(gui)
+                            gui.title = Text.literal("").append(category.getDisplayName()).append(Text.literal(" | ${paginatedSection.currentPage}"))
                         })
             }
 

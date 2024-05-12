@@ -14,7 +14,6 @@ import net.kyori.adventure.text.minimessage.MiniMessage
 import net.luckperms.api.LuckPerms
 import net.luckperms.api.LuckPermsProvider
 import net.minecraft.server.MinecraftServer
-import org.joml.Vector3f
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -35,12 +34,11 @@ class ParticleTrails : ModInitializer {
 
         val permissionManager: PermissionManager = PermissionManager()
 
-        val trailCategories: MutableList<TrailPack> = mutableListOf()
+        val trailPacks: MutableList<TrailPack> = mutableListOf()
         val playerTrail: MutableMap<UUID, Trail> = mutableMapOf()
 
         val config = Config()
     }
-
 
     override fun onInitialize() {
 

@@ -39,7 +39,7 @@ class Trails(private val main: ParticleTrails) {
                                     .then(
                                         CommandManager.argument("trail", StringArgumentType.string())
                                             .suggests { _, builder ->
-                                                CommandSource.suggestMatching(ParticleTrails.trailCategories.flatMap { it.trails }.map { it.name }.toSet(), builder)
+                                                CommandSource.suggestMatching(ParticleTrails.trailPacks.flatMap { it.trails }.map { it.name }.toSet(), builder)
                                             }
                                             .executes(giveTrail())
                                     )
@@ -55,7 +55,7 @@ class Trails(private val main: ParticleTrails) {
                                     .then(
                                         CommandManager.argument("trail", StringArgumentType.string())
                                             .suggests { _, builder ->
-                                                CommandSource.suggestMatching(ParticleTrails.trailCategories.flatMap { it.trails }.map { it.name }.toSet(), builder)
+                                                CommandSource.suggestMatching(ParticleTrails.trailPacks.flatMap { it.trails }.map { it.name }.toSet(), builder)
                                             }
                                             .executes(removeTrail())
                                     )
