@@ -28,7 +28,7 @@ class Config {
         if (createFile(filePath)) {
             val file = filePath.toFile()
             FileWriter(file).use {
-                GsonBuilder().setPrettyPrinting().create().toJson(loadSamplePack(), it)
+                GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create().toJson(loadSamplePack(), it)
             }
         }
     }

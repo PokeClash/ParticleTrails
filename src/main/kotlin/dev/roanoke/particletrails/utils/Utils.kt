@@ -80,6 +80,9 @@ class Utils {
                 }
             }
 
+            if (size > 64)
+                size = 64
+
             val item = ItemStack(Items.PAPER, size)
             item.setCustomName(category.getDisplayName())
 
