@@ -17,7 +17,9 @@ class GUIs {
             while (freeSlot != -1) {
                 gui.setSlot(
                     freeSlot,
-                    GuiElementBuilder.from(Items.BLACK_STAINED_GLASS_PANE.defaultStack.setCustomName(Text.literal("")))
+                    GuiElementBuilder.from(Items.BLACK_STAINED_GLASS_PANE.defaultStack)
+                        .setName(Text.literal(" "))
+                        .hideTooltip()
                 )
                 freeSlot = gui.firstEmptySlot
             }
