@@ -9,8 +9,7 @@ import kotlin.math.ceil
 class PaginatedSection(guiElements: List<GuiElementBuilder>) {
     var guiElements: List<GuiElementBuilder> = guiElements
     var fillItem = GuiElementBuilder.from(
-        Items.GRAY_STAINED_GLASS_PANE.defaultStack.setCustomName(Text.literal(""))
-    )
+        Items.GRAY_STAINED_GLASS_PANE.defaultStack).setName(Text.literal(" ")).hideTooltip()
 
     var slotRanges: List<SlotRange> = emptyList<SlotRange>()
     var currentPage = 1

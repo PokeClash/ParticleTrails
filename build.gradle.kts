@@ -27,7 +27,8 @@ dependencies {
     compileOnly("net.luckperms:api:5.4")
     include(modImplementation("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")!!)
 
-    modImplementation(include("eu.pb4:sgui:1.2.2+1.20")!!)
+    modImplementation("eu.pb4:sgui:1.6.1+1.21.1")
+    include("eu.pb4:sgui:1.6.1+1.21.1")
 }
 
 tasks {
@@ -64,7 +65,7 @@ tasks {
     }
 
     compileKotlin {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "21"
     }
 
 }

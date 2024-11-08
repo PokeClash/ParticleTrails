@@ -1,6 +1,8 @@
 package dev.roanoke.particletrails.utils
 
 import dev.roanoke.particletrails.ParticleTrails
+import net.minecraft.component.DataComponentTypes
+import net.minecraft.component.type.LoreComponent
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.NbtList
@@ -55,18 +57,10 @@ class Utils {
 
         fun createItem(trail: Trail): ItemStack {
             val item = ItemStack(Items.PAPER)
-            item.setCustomName(trail.getDisplayName())
+            item.set(DataComponentTypes.CUSTOM_NAME, trail.getDisplayName())
 
             if (trail.description != "") {
-                val lore = mutableListOf(Text.literal("§f" + trail.description))
-                val nbt = item.orCreateNbt
-                val displayNbt = item.getOrCreateSubNbt("display")
-                val nbtLore = NbtList()
-                for (line in lore)
-                    nbtLore.add(NbtString.of(Text.Serializer.toJson(line)))
-                displayNbt.put("Lore", nbtLore)
-                nbt.put("display", displayNbt)
-                item.nbt = nbt
+                item.set(DataComponentTypes.LORE, LoreComponent(listOf(Text.literal("§f" + trail.description))))
             }
 
             return item
@@ -84,18 +78,10 @@ class Utils {
                 size = 64
 
             val item = ItemStack(Items.PAPER, size)
-            item.setCustomName(category.getDisplayName())
+            item.set(DataComponentTypes.CUSTOM_NAME, category.getDisplayName())
 
             if (category.description != "") {
-                val lore = mutableListOf(Text.literal("§f" + category.description))
-                val nbt = item.orCreateNbt
-                val displayNbt = item.getOrCreateSubNbt("display")
-                val nbtLore = NbtList()
-                for (line in lore)
-                    nbtLore.add(NbtString.of(Text.Serializer.toJson(line)))
-                displayNbt.put("Lore", nbtLore)
-                nbt.put("display", displayNbt)
-                item.nbt = nbt
+                item.set(DataComponentTypes.LORE, LoreComponent(listOf(Text.literal("§f" + category.description))))
             }
 
             return item
@@ -136,7 +122,6 @@ class Utils {
 
         fun getAllParticleTypes(): Map<ParticleType<*>, String> {
             return mapOf(
-                ParticleTypes.AMBIENT_ENTITY_EFFECT to "ambient_entity_effect",
                 ParticleTypes.ANGRY_VILLAGER to "angry_villager",
                 ParticleTypes.ASH to "ash",
                 ParticleTypes.BUBBLE to "bubble",
@@ -230,7 +215,7 @@ class Utils {
                 if (it.value.lowercase() == particle.lowercase())
                     return it.key
             }
-            return ParticleTypes.AMBIENT_ENTITY_EFFECT
+            return ParticleTypes.ENTITY_EFFECT
         }
 
         fun spawnParticles(player: ServerPlayerEntity, trail: Trail, tick: Int = 0) {
@@ -339,9 +324,9 @@ class Utils {
                     val multiplier = 2
                     val bb = player.boundingBox
                     for (i in 0..4) {
-                        val offsetX = Random.nextDouble(-bb.xLength * multiplier, bb.xLength * multiplier)
-                        val offsetY = Random.nextDouble(-bb.yLength, bb.yLength)
-                        val offsetZ = Random.nextDouble(-bb.zLength * multiplier, bb.zLength * multiplier)
+                        val offsetX = Random.nextDouble(-bb.lengthX * multiplier, bb.lengthX * multiplier)
+                        val offsetY = Random.nextDouble(-bb.lengthY, bb.lengthY)
+                        val offsetZ = Random.nextDouble(-bb.lengthZ * multiplier, bb.lengthZ * multiplier)
                         spawnParticle(
                             player.boundingBox.center,
                             player.world as ServerWorld,
