@@ -1,10 +1,9 @@
-package dev.roanoke.particletrails
+package net.xpressdev.particletrails
 
-import dev.roanoke.particletrails.commands.Trails
-import dev.roanoke.particletrails.events.PlayerJoin
-import dev.roanoke.particletrails.events.PlayerLeave
-import dev.roanoke.particletrails.managers.PermissionManager
-import dev.roanoke.particletrails.utils.*
+import net.xpressdev.particletrails.events.PlayerJoin
+import net.xpressdev.particletrails.events.PlayerLeave
+import net.xpressdev.particletrails.managers.PermissionManager
+import net.xpressdev.particletrails.utils.*
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
@@ -52,7 +51,7 @@ class ParticleTrails : ModInitializer {
             }
         }
 
-        Trails(this)
+        net.xpressdev.particletrails.commands.Trails(this)
 
         ServerPlayConnectionEvents.JOIN.register(PlayerJoin())
         ServerPlayConnectionEvents.DISCONNECT.register(PlayerLeave())

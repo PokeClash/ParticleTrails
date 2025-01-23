@@ -1,4 +1,4 @@
-package dev.roanoke.particletrails.gui
+package net.xpressdev.particletrails.gui
 
 import eu.pb4.sgui.api.elements.GuiElementBuilder
 import eu.pb4.sgui.api.gui.SimpleGui

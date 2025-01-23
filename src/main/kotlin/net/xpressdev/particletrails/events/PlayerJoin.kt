@@ -1,6 +1,6 @@
-package dev.roanoke.particletrails.events
+package net.xpressdev.particletrails.events
 
-import dev.roanoke.particletrails.ParticleTrails
+import net.xpressdev.particletrails.ParticleTrails
 import net.fabricmc.fabric.api.networking.v1.PacketSender
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
 import net.minecraft.server.MinecraftServer

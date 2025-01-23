@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ParticleTrails.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ParticleTrails.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.roanoke.ParticleTrails.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.roanoke.ParticleTrails.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.roanoke.ParticleTrails.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.roanoke.ParticleTrails.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/minecraft-mods.ParticleTrails.main.iml" filepath="$PROJECT_DIR$/.idea/modules/minecraft-mods.ParticleTrails.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/minecraft-mods.ParticleTrails.test.iml" filepath="$PROJECT_DIR$/.idea/modules/minecraft-mods.ParticleTrails.test.iml" />
     </modules>
   </component>
 </project>

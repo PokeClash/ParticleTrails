@@ -1,6 +1,6 @@
-package dev.roanoke.particletrails.utils
+package net.xpressdev.particletrails.utils
 
-import dev.roanoke.particletrails.ParticleTrails
+import net.xpressdev.particletrails.ParticleTrails
 import net.minecraft.component.DataComponentTypes
 import net.minecraft.component.type.LoreComponent
 import net.minecraft.item.ItemStack

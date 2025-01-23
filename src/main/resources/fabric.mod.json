@@ -14,7 +14,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.roanoke.particletrails.ParticleTrails"
+      "net.xpressdev.particletrails.ParticleTrails"
     ]
   },
   "depends": {

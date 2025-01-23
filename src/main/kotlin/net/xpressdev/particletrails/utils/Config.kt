@@ -1,9 +1,9 @@
-package dev.roanoke.particletrails.utils
+package net.xpressdev.particletrails.utils
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import dev.roanoke.particletrails.ParticleTrails
+import net.xpressdev.particletrails.ParticleTrails
 import net.fabricmc.loader.api.FabricLoader
 import org.joml.Vector3f
 import java.io.FileWriter

@@ -1,4 +1,4 @@
-package dev.roanoke.particletrails.gui
+package net.xpressdev.particletrails.gui
 
 class SlotRange(private var start: Int, private var end: Int) {
 

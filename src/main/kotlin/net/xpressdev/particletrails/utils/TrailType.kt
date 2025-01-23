@@ -1,4 +1,4 @@
-package dev.roanoke.particletrails.utils
+package net.xpressdev.particletrails.utils
 
 import net.minecraft.text.Text
 

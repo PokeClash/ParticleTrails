@@ -1,9 +1,9 @@
-package dev.roanoke.particletrails.managers
+package net.xpressdev.particletrails.managers
 
-import dev.roanoke.particletrails.ParticleTrails
-import dev.roanoke.particletrails.utils.Trail
-import dev.roanoke.particletrails.utils.TrailPack
-import dev.roanoke.particletrails.utils.Utils
+import net.xpressdev.particletrails.ParticleTrails
+import net.xpressdev.particletrails.utils.Trail
+import net.xpressdev.particletrails.utils.TrailPack
+import net.xpressdev.particletrails.utils.Utils
 import net.luckperms.api.model.user.User
 import net.luckperms.api.node.Node
 import net.luckperms.api.query.Flag

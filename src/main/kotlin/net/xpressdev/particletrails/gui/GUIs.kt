@@ -1,8 +1,8 @@
-package dev.roanoke.particletrails.gui
+package net.xpressdev.particletrails.gui
 
-import dev.roanoke.particletrails.ParticleTrails
-import dev.roanoke.particletrails.utils.TrailPack
-import dev.roanoke.particletrails.utils.Utils
+import net.xpressdev.particletrails.ParticleTrails
+import net.xpressdev.particletrails.utils.TrailPack
+import net.xpressdev.particletrails.utils.Utils
 import eu.pb4.sgui.api.elements.GuiElementBuilder
 import eu.pb4.sgui.api.gui.SimpleGui
 import net.minecraft.item.Items

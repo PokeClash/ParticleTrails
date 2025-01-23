@@ -1,11 +1,11 @@
-package dev.roanoke.particletrails.commands
+package net.xpressdev.particletrails.commands
 
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.context.CommandContext
-import dev.roanoke.particletrails.ParticleTrails
-import dev.roanoke.particletrails.gui.GUIs
-import dev.roanoke.particletrails.utils.Utils
+import net.xpressdev.particletrails.ParticleTrails
+import net.xpressdev.particletrails.gui.GUIs
+import net.xpressdev.particletrails.utils.Utils
 import me.lucko.fabric.api.permissions.v0.Permissions
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.minecraft.command.CommandSource
