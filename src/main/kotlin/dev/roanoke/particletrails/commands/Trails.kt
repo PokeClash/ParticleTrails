@@ -37,11 +37,24 @@ class Trails(private val main: ParticleTrails) {
                                         CommandSource.suggestMatching(Utils.getAllPlayerNames(), builder)
                                     }
                                     .then(
-                                        CommandManager.argument("trail", StringArgumentType.string())
-                                            .suggests { _, builder ->
-                                                CommandSource.suggestMatching(ParticleTrails.trailPacks.flatMap { it.trails }.map { it.name }.toSet(), builder)
-                                            }
-                                            .executes(giveTrail())
+                                        CommandManager.literal("pack")
+                                            .then(
+                                                CommandManager.argument("pack", StringArgumentType.string())
+                                                    .suggests { _, builder ->
+                                                        CommandSource.suggestMatching(ParticleTrails.trailPacks.map { it.name }.toSet(), builder)
+                                                    }
+                                                    .executes(givePack())
+                                            )
+                                    )
+                                    .then(
+                                        CommandManager.literal("trail")
+                                            .then(
+                                                CommandManager.argument("trail", StringArgumentType.string())
+                                                    .suggests { _, builder ->
+                                                        CommandSource.suggestMatching(ParticleTrails.trailPacks.flatMap { it.trails }.map { it.name }.toSet(), builder)
+                                                    }
+                                                    .executes(giveTrail())
+                                            )
                                     )
                             )
                     )
@@ -94,6 +107,29 @@ class Trails(private val main: ParticleTrails) {
             player?.sendMessage(Text.literal("§aYou have been given the ").append(trail.getDisplayName()).append(Text.literal(" §aTrail")))
 
             source.sendFeedback({ Text.literal("§eGave §6$playerName ").append(trail.getDisplayName()).append(" §eTrail") }, true)
+            1
+        }
+    }
+
+    private fun givePack(): Command<ServerCommandSource> {
+        return Command { ctx: CommandContext<ServerCommandSource> ->
+            val source = ctx.source
+
+            val playerName = StringArgumentType.getString(ctx, "player")
+            val packName = StringArgumentType.getString(ctx, "pack")
+
+            val player = Utils.getPlayerByName(playerName)
+            val pack = Utils.getPackByName(packName)
+            if (pack == null) {
+                source.sendFeedback({ Text.literal("§cThat pack does not exist") }, true)
+                return@Command 0
+            }
+
+            Utils.givePack(player, pack)
+
+            player?.sendMessage(Text.literal("§aYou have been given the ").append(pack.getDisplayName()).append(Text.literal(" §aPack")))
+
+            source.sendFeedback({ Text.literal("§eGave §6$playerName ").append(pack.getDisplayName()).append(" §ePack") }, true)
             1
         }
     }

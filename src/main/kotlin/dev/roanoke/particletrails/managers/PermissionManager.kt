@@ -28,6 +28,13 @@ class PermissionManager {
         return hasPermission(player, "particletrails.pack.${trail.packId}.trail.${trail.name}")
     }
 
+    fun canUsePack(player: ServerPlayerEntity, trail: Trail): Boolean {
+        if (player.hasPermissionLevel(2))
+            return true
+
+        return hasPermission(player, "particletrails.pack.${trail.packId}.*")
+    }
+
     fun canSeePack(player: ServerPlayerEntity, pack: TrailPack): Boolean {
         if (player.hasPermissionLevel(2))
             return true
@@ -46,6 +53,22 @@ class PermissionManager {
         }
 
         return false
+    }
+
+    fun givePack(player: ServerPlayerEntity?, pack: TrailPack) {
+        if (player != null) {
+            ParticleTrails.api.userManager.modifyUser(player.uuid) {
+                it.data().add(Node.builder("particletrails.pack.${pack.name}.trail.*").build())
+            }
+        }
+    }
+
+    fun removePack(player: ServerPlayerEntity?, pack: TrailPack) {
+        if (player != null) {
+            ParticleTrails.api.userManager.modifyUser(player.uuid) {
+                it.data().remove(Node.builder("particletrails.pack.${pack.name}.trail.*").build())
+            }
+        }
     }
 
     fun giveTrail(player: ServerPlayerEntity?, trail: Trail) {

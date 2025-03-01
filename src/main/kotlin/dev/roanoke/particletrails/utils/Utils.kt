@@ -93,6 +93,14 @@ class Utils {
             )
         }
 
+        fun givePack(player: ServerPlayerEntity?, pack: TrailPack) {
+            ParticleTrails.permissionManager.givePack(player, pack)
+        }
+
+        fun removePack(player: ServerPlayerEntity?, pack: TrailPack) {
+            ParticleTrails.permissionManager.removePack(player, pack)
+        }
+
         fun giveTrail(player: ServerPlayerEntity?, trail: Trail) {
             ParticleTrails.permissionManager.giveTrail(player, trail)
         }
@@ -205,7 +213,18 @@ class Utils {
                 ParticleTypes.WAX_ON to "wax_on",
                 ParticleTypes.WHITE_ASH to "white_ash",
                 ParticleTypes.WITCH to "witch",
-                ParticleTypes.SNOWFLAKE to "snowflake"
+                ParticleTypes.SNOWFLAKE to "snowflake",
+                ParticleTypes.DUST_PLUME to "dust_plume",
+                ParticleTypes.WHITE_SMOKE to "white_smoke",
+                ParticleTypes.GUST to "gust",
+                ParticleTypes.TRIAL_SPAWNER_DETECTION to "trial_spawner_detection",
+                ParticleTypes.VAULT_CONNECTION to "vault_connection",
+                ParticleTypes.INFESTED to "infested",
+                ParticleTypes.OMINOUS_SPAWNING to "ominous_spawning",
+                ParticleTypes.RAID_OMEN to "raid_omen",
+                ParticleTypes.SMALL_GUST to "small_gust",
+                ParticleTypes.TRIAL_OMEN to "trial_omen",
+                ParticleTypes.TRIAL_SPAWNER_DETECTION_OMINOUS to "trial_spawner_detection_ominous",
             )
         }
 
