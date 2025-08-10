@@ -62,7 +62,11 @@ class ParticleTrails : ModInitializer {
                 tick = 0
             playerTrail.forEach {(uuid, trail) ->
                 val player = Utils.getPlayerByUUID(uuid)?: return@register
-                Utils.spawnParticles(player, trail, tick)
+                try {
+                    Utils.spawnParticles(player, trail, tick)
+                } catch (e: Exception) {
+                    LOGGER.error("Error spawning trail ${trail.name} for ${player.name.string}")
+                }
             }
             tick++;
         }
