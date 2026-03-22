@@ -60,7 +60,7 @@ class ParticleTrails : ModInitializer {
         ServerTickEvents.START_SERVER_TICK.register {
             if (tick >= 20)
                 tick = 0
-            playerTrail.forEach {(uuid, trail) ->
+            playerTrail.toList().forEach {(uuid, trail) ->
                 val player = Utils.getPlayerByUUID(uuid)?: return@register
                 try {
                     Utils.spawnParticles(player, trail, tick)
